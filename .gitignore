@@ -1,0 +1,16 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Generated images
+output/
+*.png
+*.jpg
+*.jpeg
+
+# OS
+.DS_Store
+
+# HuggingFace cache
+.cache/
