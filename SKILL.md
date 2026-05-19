@@ -7,22 +7,28 @@ description: "Generate images locally."
 
 ## First Move
 
-- Use local MLX image tools; read workflow before running model commands.
-- Full procedure: `references/workflow.md`.
+- Choose local MLX generation, then load only the needed reference.
 
 ## Use
 
-- Generate images locally on Apple Silicon.
-- Choose FLUX/Qwen model and output settings.
-- Keep generated assets in the target project, not the skill repo.
+- Generate or edit images on Apple Silicon.
+- Prefer the target project for outputs; do not save new outputs in the skill repo.
+- Use FLUX for speed and Qwen for text-heavy or multilingual images.
 
-## Workflow
+## References
 
-1. Read `references/workflow.md` only when this skill triggers.
-2. Follow the relevant section for setup, commands, and output handling.
-3. Keep outputs in the user's target project unless the workflow says otherwise.
+- `references/workflow.md`: choose which reference to load
+- `references/SETUP.md`: install or repair the local mflux environment
+- `references/models.md`: choose FLUX/Qwen, quantization, resolution, and performance tradeoffs
+- `references/commands.md`: run generation, editing, image-to-image, or batch recipes
+- `references/troubleshooting.md`: debug model, memory, or output issues
+
+## Scripts
+
+- `scripts/image_generate.py`: optional wrapper for repeatable FLUX/Qwen generation
 
 ## Verification
 
-- Confirm venv/model cache before generation.
-- Inspect generated image files before reporting success.
+- Confirm venv, `mflux`, and model cache before long runs.
+- Inspect generated images before reporting success.
+- Record prompt, seed, model, and output path when results matter.
