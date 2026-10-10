@@ -1,6 +1,6 @@
 ---
 name: text-to-image
-description: "Generate images locally."
+description: "Generate or edit images locally on Apple Silicon with MLX (FLUX.2 Klein, Qwen-Image via mflux), no cloud API. Use for prompt-to-image, image-to-image and multi-reference edits, fast drafts or text-heavy and multilingual images."
 ---
 
 # Text-to-Image Generation
@@ -29,6 +29,6 @@ description: "Generate images locally."
 
 ## Verification
 
-- Confirm venv, `mflux`, and model cache before long runs.
+- Confirm the venv (`<skill-dir>/venv`), `mflux`, and model cache before long runs.
 - Inspect generated images before reporting success.
 - Record prompt, seed, model, and output path when results matter.

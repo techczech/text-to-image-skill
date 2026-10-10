@@ -18,10 +18,10 @@ Use this for concrete mflux CLI and Python examples.
 ### CLI (fastest path — using pre-saved 8-bit model)
 
 ```bash
-source ~/gitrepos/x-experiments/image-gen/venv/bin/activate
+source <skill-dir>/venv/bin/activate
 
 mflux-generate-flux2 \
-  --model ~/local-models/flux2-klein-4b-8bit \
+  --model <models-dir>/flux2-klein-4b-8bit \
   --base-model flux2-klein-4b \
   --prompt "A photorealistic mountain landscape at golden hour" \
   --steps 4 \
@@ -60,7 +60,7 @@ image = model.generate_image(
 image.save("output.png")
 ```
 
-> **Note:** First run downloads the model (~5-15 GB depending on variant). Subsequent runs use the cache at `~/local-models/`.
+> **Note:** First run downloads the model (~5-15 GB depending on variant). Subsequent runs use the Hugging Face cache (`$HF_HUB_CACHE`, else `$HF_HOME/hub`, else `~/.cache/huggingface/hub`).
 
 ### 2. Text-to-Image: FLUX.2 Klein
 
@@ -102,13 +102,13 @@ image = model.generate_image(
 image.save("garden.png")
 ```
 
-#### Using the Pre-saved Local Model
+#### Using a Pre-saved Local Model (optional)
 
-A pre-quantized 8-bit Klein 4B model is saved at `~/local-models/flux2-klein-4b-8bit`. Use `--model` with the local path and `--base-model` to identify the architecture:
+If you saved a pre-quantized 8-bit Klein 4B model (see `references/SETUP.md` Step 5) at `<models-dir>/flux2-klein-4b-8bit`, use `--model` with the local path and `--base-model` to identify the architecture:
 
 ```bash
 mflux-generate-flux2 \
-  --model ~/local-models/flux2-klein-4b-8bit \
+  --model <models-dir>/flux2-klein-4b-8bit \
   --base-model flux2-klein-4b \
   --prompt "Your prompt here" \
   --steps 4 \
@@ -120,10 +120,10 @@ To save additional quantized models:
 
 ```bash
 # Save 4-bit quantized model (smaller, ~5 GB)
-mflux-save --path ~/local-models/flux2-klein-4b-4bit --model flux2-klein-4b --quantize 4
+mflux-save --path <models-dir>/flux2-klein-4b-4bit --model flux2-klein-4b --quantize 4
 
 # Save Klein 9B 8-bit (higher quality, ~18 GB)
-mflux-save --path ~/local-models/flux2-klein-9b-8bit --model flux2-klein-9b --quantize 8
+mflux-save --path <models-dir>/flux2-klein-9b-8bit --model flux2-klein-9b --quantize 8
 ```
 
 ### 3. Text-to-Image: Qwen-Image

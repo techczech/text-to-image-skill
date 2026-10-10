@@ -36,8 +36,8 @@ import argparse
 import os
 import time
 
-# Ensure shared model cache
-os.environ.setdefault("HF_HUB_CACHE", os.path.expanduser("~/local-models"))
+# Models use the standard Hugging Face cache: $HF_HUB_CACHE, else $HF_HOME/hub,
+# else ~/.cache/huggingface/hub. Set HF_HOME to keep them on another volume.
 
 KLEIN_CONFIGS = {
     "4b": ("flux2-klein-4b", 4),

@@ -22,8 +22,8 @@ Local image generation on Apple Silicon using:
 ### Step 1: Create project directory
 
 ```bash
-mkdir -p ~/gitrepos/x-experiments/image-gen
-cd ~/gitrepos/x-experiments/image-gen
+# From the skill folder (e.g. ~/.claude/skills/text-to-image); the venv lives inside it and is gitignored
+cd <skill-dir>
 ```
 
 ### Step 2: Create Python venv
@@ -50,25 +50,23 @@ mflux-generate-qwen-edit --help
 
 You need **mflux v0.16.0+** for FLUX.2 Klein and Qwen-Image support.
 
-### Step 4: Set HuggingFace cache (shared with other skills)
+### Step 4: (Optional) Choose where models are cached
 
-Add to `~/.zshrc` if not already set:
+Models download into the standard Hugging Face cache: `$HF_HUB_CACHE` if set, else `$HF_HOME/hub`, else `~/.cache/huggingface/hub`. To keep them on another volume, add to `~/.zshrc`:
 
 ```bash
-export HF_HUB_CACHE=~/local-models
+export HF_HOME=/path/to/models
 ```
 
-This shares the model cache with text-to-speech, speech-to-text, and other skills.
+### Step 5: (Optional) Save a quantized model locally
 
-### Step 5: Save a quantized model locally (already done)
+Saving a pre-quantized copy lets later runs load in a few seconds instead of re-quantizing. Pick any directory (`<models-dir>` below); an 8-bit Klein 4B copy is ~8 GB.
 
-A pre-quantized 8-bit Klein 4B model is saved at `~/local-models/flux2-klein-4b-8bit` (~8 GB).
-
-To re-create or save other models:
+To save one:
 
 ```bash
 mflux-save \
-  --path ~/local-models/flux2-klein-4b-8bit \
+  --path <models-dir>/flux2-klein-4b-8bit \
   --model flux2-klein-4b \
   --quantize 8
 ```
@@ -78,9 +76,9 @@ mflux-save \
 ```bash
 source venv/bin/activate
 
-# FLUX Klein — Using pre-saved local model (fastest — ~7s at 512x512, ~18s at 1024x1024)
+# FLUX Klein — Using a pre-saved local model from Step 5 (fastest — ~7s at 512x512, ~18s at 1024x1024)
 mflux-generate-flux2 \
-  --model ~/local-models/flux2-klein-4b-8bit \
+  --model <models-dir>/flux2-klein-4b-8bit \
   --base-model flux2-klein-4b \
   --prompt "A simple red circle on a white background" \
   --steps 4 \
@@ -151,7 +149,7 @@ mflux-generate-qwen-edit \
 # === FLUX Klein ===
 
 # Basic generation using pre-saved local model (fastest)
-mflux-generate-flux2 --model ~/local-models/flux2-klein-4b-8bit --base-model flux2-klein-4b --prompt "..." --steps 4 --seed 42
+mflux-generate-flux2 --model <models-dir>/flux2-klein-4b-8bit --base-model flux2-klein-4b --prompt "..." --steps 4 --seed 42
 
 # Basic generation (downloads on-the-fly, cached after first run)
 mflux-generate-flux2 --model flux2-klein-4b --prompt "..." --steps 4 --seed 42
@@ -219,13 +217,13 @@ mflux-generate-qwen-edit --image-paths photo.jpg --lora-style portrait --prompt 
 
 | Issue | Solution |
 |-------|---------|
-| `ModuleNotFoundError: mflux` | Activate venv: `source ~/gitrepos/x-experiments/image-gen/venv/bin/activate` |
+| `ModuleNotFoundError: mflux` | Activate venv: `source <skill-dir>/venv/bin/activate` |
 | `mflux-generate-flux2: command not found` | `pip install --upgrade mflux` (v0.16.0+ required) |
 | `mflux-generate-qwen: command not found` | `pip install --upgrade mflux` (v0.16.0+ required) |
 | Out of memory (FLUX) | Use `-q 4` or switch to Klein 4B |
 | Out of memory (Qwen) | Use `-q 4` (~24 GB), `--low-ram`, or fall back to FLUX Klein |
 | Slow generation | FLUX: use distilled model (4 steps). Qwen: ~3 min is normal |
-| Model download stalls | Check connection; set `HF_HUB_CACHE=~/local-models` |
+| Model download stalls | Check connection; set `HF_HOME` to a volume with space |
 
 ## Links
 

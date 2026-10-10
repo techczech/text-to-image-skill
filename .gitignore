@@ -1,16 +1,21 @@
 # Python
 venv/
+.venv/
 __pycache__/
 *.py[cod]
 
-# Generated images
+# Generated images and local assets
 output/
+assets/
 *.png
 *.jpg
 *.jpeg
 
+# Saved quantized models (if you save them inside the skill folder)
+models/
+
 # OS
 .DS_Store
 
-# HuggingFace cache
-.cache/
+# Stale packaged archive with old paths; rebuild before publishing if needed
+*.skill

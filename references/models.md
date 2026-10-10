@@ -79,7 +79,7 @@ Measured generation times on M4 Max 128 GB (40 GPU cores):
 
 > **Note:** Quantization (4-bit vs 8-bit) does not significantly impact generation speed on Apple Silicon — the bottleneck is compute, not memory bandwidth for these model sizes. Use higher quantization for better quality.
 
-Loading from the pre-saved local model at `~/local-models/flux2-klein-4b-8bit` takes ~3s. First-ever download from HuggingFace takes ~15 min for Klein, ~30 min for Qwen-Image.
+Loading from a pre-saved local model (optional; see `references/SETUP.md` Step 5) takes ~3s. First-ever download from HuggingFace takes ~15 min for Klein, ~30 min for Qwen-Image.
 
 ## Output Formats
 
